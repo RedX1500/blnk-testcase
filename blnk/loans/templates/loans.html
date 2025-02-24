@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+
+{% block title %}Loans{% endblock title %}
+
+
+{%block content %}
+  <h1>Select a Loan</h1>
+  <form method="POST">
+    {% csrf_token %} {{loanform.as_p}}
+    <input type="submit" value="Select Loan" />
+  </form>
+{% endblock content %}

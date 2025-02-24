@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Loan Settings{% endblock title %}
+
+
+{%block content %}
+  <h1>Set Loan Settings</h1>
+  {% comment %} #as_p for some styling {% endcomment %}
+  <form method="POST">
+    {% csrf_token %} {{loansettingsform.as_p}}
+    <input type="submit" value="Set Settings" />
+  </form>
+{% endblock content %}

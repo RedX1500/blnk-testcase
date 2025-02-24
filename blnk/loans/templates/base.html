@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} page title {% endblock title %}</title>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+  </head>
+  <body>
+    <nav>
+      <p>User: {{ request.user }}</p>
+      <a href="/">Home</a>
+      <a href="/login">Login</a>
+      <a href="/register">Register</a>
+      
+    {% if request.user.is_authenticated %}
+        {% if request.user.is_superuser %}
+            <a href="/dashboard">Dashboard</a>
+            <a href="/loanfunds">Loan Funds</a>
+            <a href="/loansettings">Loan Settings</a>
+            <a href="/loans">Loans</a>
+        {% else %}
+            {% if request.user.role == "loan_provider" %}
+                <a href="/loanfunds">Loan Funds</a>
+            {% elif request.user.role == "loan_customer" %}
+                <a href="/loans">Loans</a>
+            {% elif request.user.role == "bank_personnel" %}
+                <a href="/loansettings">Loan Settings</a>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    <a href="/logoutpage">Logout</a>
+    
+    </nav>
+    <main>{% block content %}{% endblock content %}</main>
+  </body>
+</html>
